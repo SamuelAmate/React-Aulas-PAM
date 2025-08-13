@@ -15,8 +15,10 @@ export default function App() {
         <View style={styles.container}>
             <Text style={styles.text}>{texto1}</Text>
             <Text style={styles.text}>{texto2}</Text>
-            <Button title="Alterar Texto 1" onPress={altexto1} />
-            <Button title="Alterar Texto 2" onPress={altexto2} />
+            <View style={styles.buttonContainer}>
+                <Button title="Alterar Texto 1" onPress={altexto1} color="#4CAF50" />
+                <Button title="Alterar Texto 2" onPress={altexto2} color="#FF5722" />
+            </View>
             <StatusBar style="auto" />
         </View>
     );
@@ -25,12 +27,25 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f0f0f0',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
+        flexDirection: 'column',
     },
     text: {
-        fontSize: 18,
-        marginBottom: 10,
+        fontSize: 20,
+        fontFamily: 'Arial',
+        color: '#333',
+        marginBottom: 20,
+        fontWeight: '600',
+        textAlign: 'center',
+    },
+    buttonContainer: {
+        width: '100%',
+        marginTop: 20,
+        marginBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
