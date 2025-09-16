@@ -1,51 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { useState } from 'react';
+// -------------------- IMPORTAÇÕES --------------------
+import path from "path";
+import express from "express";
+import morgan from "morgan";
+import expressLayouts from "express-ejs-layouts";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-export default function App() {
-    const [texto1, setTexto1] = useState('Texto 1');
-    const altexto1 = () => {
-        setTexto1('Texto 1 Alterado');
-    }
-    const [texto2, setTexto2] = useState('Texto 2');
-    const altexto2 = () => {    
-        setTexto2('Texto 2 Alterado');
-    }
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>{texto1}</Text>
-            <Text style={styles.text}>{texto2}</Text>
-            <View style={styles.buttonContainer}>
-                <Button title="Alterar Texto 1" onPress={altexto1} color="#4CAF50" />
-                <Button title="Alterar Texto 2" onPress={altexto2} color="#FF5722" />
-            </View>
-            <StatusBar style="auto" />
-        </View>
-    );
-}
+// Rotas
+import alunosRoutes from "./routes/alunosRoutes.js";
+import cursosRoutes from "./routes/cursosRoutes.js";
+import equipeRoutes from "./routes/equipeRoutes.js";
+import e from "express";
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f0f0f0',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        flexDirection: 'column',
-    },
-    text: {
-        fontSize: 20,
-        fontFamily: 'Arial',
-        color: '#333',
-        marginBottom: 20,
-        fontWeight: '600',
-        textAlign: 'center',
-    },
-    buttonContainer: {
-        width: '100%',
-        marginTop: 20,
-        marginBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+// -------------------- CONFIGURAÇÕES BÁSICAS --------------------
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+// -------------------- EJS + LAYOUTS --------------------
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "index"); // layout base = views/index.ejs
+
+// -------------------- MIDDLEWARES --------------------
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "public"))); // arquivos estáticos
+
+// -------------------- ROTAS --------------------
+app.use("/alunos", alunosRoutes);
+
+app.use("/cursos", cursosRoutes);
+
+app.use("/equipe", equipeRoutes);
+
+app.get("/", (req, res) => {
+  res.render("home", { title: "Página Inicial" });
+});
+
+// 404
+app.use((req, res) => {
+  res.status(404).render("notfound", { title: "Página não encontrada" });
+});
+
+// -------------------- SERVIDOR --------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
