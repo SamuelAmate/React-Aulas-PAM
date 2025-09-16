@@ -1,0 +1,40 @@
+<!-- Cabeçalho da página: título à esquerda + botão "Novo Aluno" à direita -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h4 mb-0">Alunos</h1>
+  <!-- Link para o formulário de criação -->
+  <a href="/alunos/create" class="btn btn-primary">Novo Aluno</a>
+</div>
+
+<!-- Card Bootstrap para dar um visual "caixa" -->
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <!-- Tabela responsiva para exibir as categorias -->
+    <table class="table table-hover align-middle mb-0">
+      <!-- Cabeçalho da tabela -->
+      <thead class="table-light">
+        <tr>
+          <th>Nome</th>
+          <th>Curso</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (typeof alunos !== 'undefined' && alunos.length > 0) { %>
+          <% alunos.forEach(aluno => { %>
+            <tr>
+              <td><%= aluno.nome %></td>
+              <td><%= aluno.curso %></td>
+              <td class="text-end">
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="2" class="text-center py-3 text-muted">
+              Nenhum aluno cadastrado
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

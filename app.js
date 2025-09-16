@@ -1,28 +1,55 @@
-const express = require("express");
-const path = require("path");
+// -------------------- IMPORTAÇÕES --------------------
+import path from "path";
+import express from "express";
+import morgan from "morgan";
+import expressLayouts from "express-ejs-layouts";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+
+// Rotas
+import alunosRoutes from "./routes/alunosRoutes.js";
+import cursosRoutes from "./routes/cursosRoutes.js";
+import equipeRoutes from "./routes/equipeRoutes.js";
+import e from "express";
+
+// -------------------- CONFIGURAÇÕES BÁSICAS --------------------
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
-//configuração do EJS como view
+// -------------------- EJS + LAYOUTS --------------------
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "index"); // layout base = views/index.ejs
 
-//Rota principal
-const indexRouter = require("./routes/index");
-app.use("/", indexRouter);
+// -------------------- MIDDLEWARES --------------------
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "public"))); // arquivos estáticos
 
-//Rota de Categorias
-const categoriesRouter = require("./routes/categorias");
-app.use("/categorias", categoriesRouter);
+// -------------------- ROTAS --------------------
+app.use("/alunos", alunosRoutes);
 
-//Rota de Cursos
-const cursoRouter = require("./routes/curso");
-app.use("/curso", cursoRouter);
+app.use("/cursos", cursosRoutes);
 
-//Rota de Alunos
-const alunosRouter = require("./routes/alunos");
-app.use("/alunos", alunosRouter);
+app.use("/equipe", equipeRoutes);
 
-//rodar o server
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000");
+app.get("/", (req, res) => {
+  res.render("home", { title: "Página Inicial" });
+});
+
+// 404
+app.use((req, res) => {
+  res.status(404).render("notfound", { title: "Página não encontrada" });
+});
+
+// -------------------- SERVIDOR --------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

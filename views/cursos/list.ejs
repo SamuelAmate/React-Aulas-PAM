@@ -1,0 +1,38 @@
+<!-- Cabeçalho da página: título à esquerda + botão "Novo Aluno" à direita -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h4 mb-0">Cursos</h1>
+  <!-- Link para o formulário de criação -->
+  <a href="/cursos/create" class="btn btn-primary">Novo Curso</a>
+</div>
+
+<!-- Card Bootstrap para dar um visual "caixa" -->
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <!-- Tabela responsiva para exibir as categorias -->
+    <table class="table table-hover align-middle mb-0">
+      <!-- Cabeçalho da tabela -->
+      <thead class="table-light">
+        <tr>
+          <th>Curso</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (typeof cursos !== 'undefined' && cursos.length > 0) { %>
+          <% cursos.forEach(curso => { %>
+            <tr>
+              <td><%= curso.nome %></td>
+              <td class="text-end">
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="2" class="text-center py-3 text-muted">
+              Nenhum curso cadastrado
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
