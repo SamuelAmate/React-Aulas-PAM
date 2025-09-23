@@ -1,9 +1,17 @@
-# CRUD Firebase MVC (Web SDK) — Node.js + Express + EJS + Bootstrap
+# CRUD 🔥Firebase MVC (Web SDK) — 🌐Node.js + Express + EJS + 🅱️Bootstrap
 
-- **Firebase Realtime Database** via **Firebase Web SDK (modular)** usado nos **controllers**.
-- Arquitetura **MVC**: rotas → controllers → DB. Views **EJS** apenas renderizam.
-- **Bootstrap 5** via CDN e **express-ejs-layouts** para layout base.
+- **🔥Firebase Realtime Database** via **Firebase Web SDK (modular)** usado nos **controllers**.
+- 🔀Arquitetura **MVC**: rotas → controllers → DB. Views **EJS** apenas renderizam.
+- **🅱️Bootstrap 5** via CDN e **express-ejs-layouts** para layout base.
+- **💼Colaboradores:**
 
+   👨‍💼Samuel Amate(https://github.com/SamuelAmate)
+
+   👨‍💼 Thomas Adrian(https://github.com/Thomas-Adrian-Soler-Nilsson)
+  
+- **👀Link do Render:**
+    https://react-aulas-pam.onrender.com/
+  
 > ⚠️ Observação de segurança: Usar Web SDK no servidor expõe `apiKey` (que não é um segredo, mas a configuração do projeto é pública). **Recomenda-se** utilizar regras do Realtime Database adequadas (ou considerar Admin SDK quando possível).
 
 ## Rodando
@@ -43,5 +51,13 @@ public/       # assets estáticos
     ".write": true
   }
 }
-```
-"# nodejs-crud-firebase" 
+
+
+
+
+
+
+
+
+
+
