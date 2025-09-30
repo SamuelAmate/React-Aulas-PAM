@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 // Rotas
 import alunosRoutes from "./routes/alunosRoutes.js";
 import cursosRoutes from "./routes/cursosRoutes.js";
+import professorRoutes from "./routes/professorRoutes.js";
 import equipeRoutes from "./routes/equipeRoutes.js";
 import e from "express";
 
@@ -36,6 +37,8 @@ app.use(express.static(path.join(__dirname, "public"))); // arquivos estáticos
 app.use("/alunos", alunosRoutes);
 
 app.use("/cursos", cursosRoutes);
+
+app.use("/professor", professorRoutes);
 
 app.use("/equipe", equipeRoutes);
 
