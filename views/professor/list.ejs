@@ -1,8 +1,8 @@
 <!-- Cabeçalho da página: título à esquerda + botão "Novo Aluno" à direita -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="h4 mb-0">Alunos</h1>
+  <h1 class="h4 mb-0">professor</h1>
   <!-- Link para o formulário de criação -->
-  <a href="/alunos/create" class="btn btn-primary">Novo Aluno</a>
+  <a href="/professor/create" class="btn btn-primary">Novo Aluno</a>
 </div>
 
 <!-- Card Bootstrap para dar um visual "caixa" -->
@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <% if (Object.keys(alunos).length===0) { %>
+        <% if (Object.keys(professor).length===0) { %>
           <tr>
             <td colspan = "2" class="text-center py-4 text-muted">
               Nenhum aluno cadastrado
@@ -27,10 +27,10 @@
           </tr>
           <% } %>
 
-          <% for(let id in alunos) { %>
+          <% for(let id in professor) { %>
             <tr>
-              <td><%= alunos[id].nome %></td>
-              <td><%= alunos[id].curso %></td>
+              <td><%= professor[id].nome %></td>
+              <td><%= professor[id].curso %></td>
               <td class="text-end"><!--Link do excluir e do editar--></td>
             </tr>
           <% } %>
