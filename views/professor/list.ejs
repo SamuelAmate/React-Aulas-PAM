@@ -1,8 +1,8 @@
-<!-- Cabeçalho da página: título à esquerda + botão "Novo Aluno" à direita -->
+<!-- Cabeçalho da página: título à esquerda + botão "Novo professor" à direita -->
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h1 class="h4 mb-0">professor</h1>
   <!-- Link para o formulário de criação -->
-  <a href="/professor/create" class="btn btn-primary">Novo Aluno</a>
+  <a href="/professor/create" class="btn btn-primary">Novo Professor</a>
 </div>
 
 <!-- Card Bootstrap para dar um visual "caixa" -->
@@ -19,21 +19,25 @@
         </tr>
       </thead>
       <tbody>
-        <% if (Object.keys(professor).length===0) { %>
+        <% if (typeof professor !== 'undefined' && professor.length > 0) { %>
+          <% professor.forEach(professor => { %>
+            <tr>
+              <td><%= professor.nome %></td>
+              <td><%= professor.curso %></td>
+              <td class="text-end">
+                <a href="/professor/<%= professor.id %>/edit">
+                  <button class="btn btn-warning btn-sm">Editar</button>
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
           <tr>
-            <td colspan = "2" class="text-center py-4 text-muted">
-              Nenhum aluno cadastrado
+            <td colspan="2" class="text-center py-3 text-muted">
+              Nenhum professor cadastrado
             </td>
           </tr>
-          <% } %>
-
-          <% for(let id in professor) { %>
-            <tr>
-              <td><%= professor[id].nome %></td>
-              <td><%= professor[id].curso %></td>
-              <td class="text-end"><!--Link do excluir e do editar--></td>
-            </tr>
-          <% } %>
+        <% } %>
       </tbody>
     </table>
   </div>

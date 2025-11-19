@@ -1,19 +1,17 @@
-// -------------------- IMPORTAÇÕES --------------------
 import path from "path";
 import express from "express";
 import morgan from "morgan";
 import expressLayouts from "express-ejs-layouts";
+import methodOverride from "method-override";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
 // Rotas
 import alunosRoutes from "./routes/alunosRoutes.js";
 import cursosRoutes from "./routes/cursosRoutes.js";
-import professorRoutes from "./routes/professorRoutes.js";
 import equipeRoutes from "./routes/equipeRoutes.js";
-import e from "express";
+import professorRoutes from "./routes/professorRoutes.js";
 
-// -------------------- CONFIGURAÇÕES BÁSICAS --------------------
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,22 +23,20 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(expressLayouts);
-app.set("layout", "index"); // layout base = views/index.ejs
+app.set("layout", "index");
 
-// -------------------- MIDDLEWARES --------------------
+// -------------------- MIDDLEWARES (ORDEM CORRETA) --------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method")); // ✅ AQUI - ANTES DAS ROTAS
 app.use(morgan("dev"));
-app.use(express.static(path.join(__dirname, "public"))); // arquivos estáticos
+app.use(express.static(path.join(__dirname, "public")));
 
 // -------------------- ROTAS --------------------
 app.use("/alunos", alunosRoutes);
-
 app.use("/cursos", cursosRoutes);
-
-app.use("/professor", professorRoutes);
-
 app.use("/equipe", equipeRoutes);
+app.use("/professor", professorRoutes);
 
 app.get("/", (req, res) => {
   res.render("home", { title: "Página Inicial" });

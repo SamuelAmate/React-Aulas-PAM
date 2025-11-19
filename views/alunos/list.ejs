@@ -19,21 +19,25 @@
         </tr>
       </thead>
       <tbody>
-        <% if (Object.keys(alunos).length===0) { %>
+        <% if (typeof alunos !== 'undefined' && alunos.length > 0) { %>
+          <% alunos.forEach(aluno => { %>
+            <tr>
+              <td><%= aluno.nome %></td>
+              <td><%= aluno.curso %></td>
+              <td class="text-end">
+                <a href="/alunos/<%= aluno.id %>/edit">
+                  <button class="btn btn-warning btn-sm">Editar</button>
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
           <tr>
-            <td colspan = "2" class="text-center py-4 text-muted">
+            <td colspan="2" class="text-center py-3 text-muted">
               Nenhum aluno cadastrado
             </td>
           </tr>
-          <% } %>
-
-          <% for(let id in alunos) { %>
-            <tr>
-              <td><%= alunos[id].nome %></td>
-              <td><%= alunos[id].curso %></td>
-              <td class="text-end"><!--Link do excluir e do editar--></td>
-            </tr>
-          <% } %>
+        <% } %>
       </tbody>
     </table>
   </div>
